@@ -1,2 +1,2 @@
-# unidade-de-controle
-Unidade de Controle - Projeto 1 da disciplina Arquitetura de Computadores 2
+# Control Unit
+A simple simulator of a control unit in python.
