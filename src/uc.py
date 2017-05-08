@@ -13,7 +13,7 @@ class ControlUnit():
     def __init__(self, data_mem, instr_mem):
         self.data_mem = data_mem     #Memória de dados
         self.instr_mem = instr_mem   #Memória de instruções
-        self.reg = [0] * 4           #Array de registradores
+        self.reg = [0] * 5           #Array de registradores
         self.ir = ""                 #Armazena a instrução atual
         self.pc = 0                  #Armazena o endereço da próxima instrução
         self.flags = [False] * 4     #Flags condicionais [zero, menor que, maior que, igual]
@@ -81,7 +81,10 @@ class ControlUnit():
         operands = data.split(',')
         value = 0
 
-        adress_mem = int(re.sub(r'[^\d]', '', operands[0].upper()))     #Endereço na memória
+        if "R" in operands[0][3:len(operands[0])-1]:
+            adress_mem = self.reg[int(operands[0][4:len(operands[0])-1])]
+        else:
+            adress_mem = int(re.sub(r'[^\d]', '', operands[0].upper()))     #Endereço na memória
 
         if "R" in operands[1].upper():          #Confere se é um registrador
             value = self.reg[int(operands[1][1])]
@@ -169,8 +172,8 @@ if __name__ == "__main__":
     data_mem = [0] * 16
     instr_mem = []
 
-    #name = "fibonacci.txt"
-    name = input("Programa: ")
+    name = "../assets/fibonacci.txt"
+    #name = input("Programa: ")
     file = open(name, "r")
 
     uc = ControlUnit(data_mem, instr_mem)
